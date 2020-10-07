@@ -1,0 +1,3 @@
+cd /mnt/c/_repo/han-zidian/utilities
+chmod 755 get-all-hanzi.php
+./get-all-hanzi

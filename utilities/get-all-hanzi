@@ -1,0 +1,8 @@
+php get-stroke-orders.php n=1 t=order
+php get-stroke-orders.php n=2 t=order
+php get-stroke-orders.php n=3 t=order
+php get-stroke-orders.php n=4 t=order
+php get-stroke-orders.php n=5 t=order
+php get-stroke-orders.php n=6 t=order
+php get-stroke-orders.php n=7 t=order
+echo "COMPLETED DOWNLOADING HANZI IMAGE DATA"
