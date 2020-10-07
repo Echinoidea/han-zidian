@@ -72,6 +72,7 @@ function curl($url){
 
 
 function downloadAnimations($pageNumber, $type = "bw") {
+	// Get site info
 	$listBaseUrl = "https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project/Simplified_Chinese_progress";
 	$pageUrl = $listBaseUrl;
 	if ($pageNumber > 1) $pageUrl .= "/" . $pageNumber;
@@ -83,11 +84,13 @@ function downloadAnimations($pageNumber, $type = "bw") {
 
 	$html->load($hmlString);
 
+	// Create directory for the images to go.
 	$dir = "../assets/" . $pageNumber;
 	mkdir($dir);
 	chdir($dir);
 	echo "\nCreated Directory " . $dir . "\n";
 
+	// Get the image from each row in the table.
 	foreach ($html->find('tr') as $tr) {
 		$type = "order";
 		$tdIndex = 3;
@@ -97,6 +100,8 @@ function downloadAnimations($pageNumber, $type = "bw") {
 		$td = $tr->find("td", $tdIndex);
 		if (!$td) continue;
 		$img = $td->find("img", 0);
+		
+		// If there isn't an animated stroke order, resort to the diagram image.
 		if (!$img) {
 			echo "\nCOULD NOT FIND ORDER IMAGE\n";
 			$type = "bw";
@@ -107,6 +112,8 @@ function downloadAnimations($pageNumber, $type = "bw") {
 				echo "\nCOULD NOT FIND BW IMAGE. NO IMAGE WILL BE DOWNLOADED.\n";
 			}
 		}
+
+		// Idk what this is doing
 		$src = $img->getAttribute("src");
 		if ($type == "bw" && strpos($src, "-bw.png") === false) continue;
 		if ($type == "red" && strpos($src, "-red.png") === false) continue;
@@ -115,12 +122,13 @@ function downloadAnimations($pageNumber, $type = "bw") {
 		$src = substr($src, 0, $lastSlashIndex);
 		$src = str_replace("/thumb", "", $src);
 		
+		// Name it
 		$alt = $img->getAttribute("alt");
 		if ($type == "bw") $filename = substr($alt, 0) . "-bw" . ".png";
 		if ($type == "red") $filename = substr($alt, 0) . "-red" . ".png";
 		if ($type == "order") $filename = substr($alt, 0) . "-order" . ".gif";
 		
-		
+		// Download it
 		echo "Downloading " . substr($alt, 0) . "\n";
 		$pngData = file_get_contents($src);
 		file_put_contents($filename, $pngData);
