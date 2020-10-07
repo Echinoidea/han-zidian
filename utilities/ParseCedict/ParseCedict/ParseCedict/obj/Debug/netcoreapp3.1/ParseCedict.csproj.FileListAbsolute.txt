@@ -1,0 +1,15 @@
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.exe
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.deps.json
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.runtimeconfig.json
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.runtimeconfig.dev.json
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.dll
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\ParseCedict.pdb
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.csprojAssemblyReference.cache
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.AssemblyInfoInputs.cache
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.AssemblyInfo.cs
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.dll
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.pdb
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.genruntimeconfig.cache
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.csproj.CoreCompileInputs.cache
+C:\_repo\han-zidian\utilities\ParseCedict\ParseCedict\ParseCedict\obj\Debug\netcoreapp3.1\ParseCedict.csproj.CopyComplete
