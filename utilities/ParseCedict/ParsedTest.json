@@ -1,0 +1,67 @@
+{
+  "HanziSimp": "\u378E\u378E",
+  "HanziTrad": "\u378E\u378E",
+  "Pinyin": "[ba3 ba5]",
+  "English": "/(baby talk) poop/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u3797",
+  "HanziTrad": "\u3797",
+  "Pinyin": "[qiu2]",
+  "English": "/(dialect) penis/dick/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u3799",
+  "HanziTrad": "\u3799",
+  "Pinyin": "[niao4]",
+  "English": "/old variant of \u5C3F[niao4]/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u5CB8",
+  "HanziTrad": "\u37C1",
+  "Pinyin": "[an4]",
+  "English": "/variant of \u5CB8[an4]/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u5C9B",
+  "HanziTrad": "\u3800",
+  "Pinyin": "[dao3]",
+  "English": "/variant of \u5CF6|\u5C9B[dao3]/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u4EE5",
+  "HanziTrad": "\u382F",
+  "Pinyin": "[yi3]",
+  "English": "/old variant of \u4EE5[yi3]/",
+  "ImagePath": "C:\\_repo\\han-zidian\\assets\\stroke-orders\\\\\u4EE5-order.gif"
+}{
+  "HanziSimp": "\u4E00\u4E2A\u4EBA",
+  "HanziTrad": "\u4E00\u500B\u4EBA",
+  "Pinyin": "[yi1 ge4 ren2]",
+  "English": "/by oneself (without assistance)/alone (without company)/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u4E00\u4E2A\u4E2A",
+  "HanziTrad": "\u4E00\u500B\u500B",
+  "Pinyin": "[yi1 ge4 ge4]",
+  "English": "/each and every one/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u4E00\u4E2A\u52B2",
+  "HanziTrad": "\u4E00\u500B\u52C1",
+  "Pinyin": "[yi1 ge4 jin4]",
+  "English": "/continuously/persistently/incessantly/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u4E00\u4E2A\u52B2\u513F",
+  "HanziTrad": "\u4E00\u500B\u52C1\u5152",
+  "Pinyin": "[yi1 ge4 jin4 r5]",
+  "English": "/erhua variant of \u4E00\u500B\u52C1|\u4E00\u4E2A\u52B2[yi1 ge4 jin4]/",
+  "ImagePath": null
+}{
+  "HanziSimp": "\u4E00\u4E2A\u534A",
+  "HanziTrad": "\u4E00\u500B\u534A",
+  "Pinyin": "[yi1 ge5 ban4]",
+  "English": "/one and a half/",
+  "ImagePath": null
+}

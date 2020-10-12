@@ -16,12 +16,12 @@ namespace ParseCedict
 {
     class Word
     {
-        // All words must contain a hanzi, pinyin, english, part of speech, but may not have image path
+        // All words must contain a hanzi, pinyin, english, but may not have image path
         public string HanziSimp; // Simplified Chinese character
         public string HanziTrad; // Traditional Chinese character
         public string Pinyin;    // Pinyin for the Word
         public string English;   // English translation of the Word
-        public string POS;       // Part of speech of the Word
+        //public string POS;       // Part of speech of the Word
         public string ImagePath; // Path leading to the appropriate image for the Hanzi
 
 
@@ -39,6 +39,21 @@ namespace ParseCedict
     class Program
     {
         private static List<Word> words = new List<Word>();
+        private static int imageCount = 0;
+        private static void FindImagePath(Word word)
+        {
+            string imageSourceDir = @"C:\_repo\han-zidian\assets\stroke-orders";
+            DirectoryInfo directory = new DirectoryInfo(imageSourceDir);
+
+            foreach (var f in directory.GetFiles())
+            {
+                if (f.Name.Contains(word.HanziSimp) || f.Name.Contains(word.HanziTrad)) 
+                {
+                    word.ImagePath = f.DirectoryName + @"\\" + f.Name;
+                    imageCount++;
+                }
+            }
+        }
 
         private static Word CreateWord(string s)
         {
@@ -72,6 +87,8 @@ namespace ParseCedict
                 word.HanziSimp = hanziSimp;
                 word.Pinyin = pinyin;
                 word.English = english;
+
+                FindImagePath(word);
             }
 
             return word;
@@ -110,7 +127,7 @@ namespace ParseCedict
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             string dictPath = @"C:\_repo\han-zidian\utilities\ParseCedict\cedict_ts.u8";
-            string parsedPath = @"C:\_repo\han-zidian\utilities\ParseCedict\Parsed.json";
+            string parsedPath = @"C:\_repo\han-zidian\utilities\ParseCedict\ParsedCedict.json";
 
             File.Delete(parsedPath);
 
@@ -121,7 +138,6 @@ namespace ParseCedict
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
-
             foreach (Word w in words)
             {
                 if (w.HanziSimp == null && w.HanziTrad == null && w.Pinyin == null && w.English == null)
@@ -138,11 +154,11 @@ namespace ParseCedict
             }
             stopwatch.Stop();
 
-            Console.WriteLine("Wrote {0} words and skipped {1} words in {2} milliseconds", wordCount, skipCount, stopwatch.ElapsedMilliseconds);
+            Console.WriteLine("Wrote {0} words and skipped {1} words in {2} milliseconds\nFound images for {3} words", wordCount, skipCount, stopwatch.ElapsedMilliseconds, imageCount);
             Console.WriteLine(@"Created JSON file at C:\_repo\han-zidian\utilities\ParseCedict");
+            // RESULTS Wrote 116747 words and skipped 2098 words in 430098 milliseconds Found images for 1165 words
         }
     }
 }
 
 // TODO: It's fine that the JSON file isn't showing the Hanzi, just convert the encoding to UTF8 when deserializing in Dart
-// TODO: Exception handling when parsing 118,000 lines of text. Something will probably happen.
