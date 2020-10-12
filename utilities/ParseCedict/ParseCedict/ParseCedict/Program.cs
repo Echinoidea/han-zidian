@@ -10,6 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace ParseCedict
 {
@@ -55,7 +56,8 @@ namespace ParseCedict
             string pinyin;
             string english;
 
-            Regex r = new Regex(@"^(?<trad>[\u4E00-\u9FA5]+) (?<simp>[\u4E00-\u9FA5]+) (?<pinyin>\[([\w ]+)\]) (?<english>\/(.+)\/)$");
+            Regex r = new Regex(@"^(?<trad>[\p{Lo}\p{N}]+) (?<simp>[\p{Lo}\p{N}]+) (?<pinyin>\[([\w ]+)\]) (?<english>\/(.+)\/)$");
+
 
             foreach (Match match in Regex.Matches(s, r.ToString(), RegexOptions.IgnoreCase))
             {
@@ -107,16 +109,40 @@ namespace ParseCedict
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-            SplitCeDict(@"C:\_repo\han-zidian\utilities\ParseCedict\TestDict.txt");
-            foreach (var l in words)
+            string dictPath = @"C:\_repo\han-zidian\utilities\ParseCedict\cedict_ts.u8";
+            string parsedPath = @"C:\_repo\han-zidian\utilities\ParseCedict\Parsed.json";
+
+            File.Delete(parsedPath);
+
+            SplitCeDict(dictPath);
+
+            int wordCount = 0;
+            int skipCount = 0;
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            foreach (Word w in words)
             {
-                File.WriteAllText(@"C:\_repo\han-zidian\utilities\ParseCedict\Parsed.json", PrettyJson(JsonConvert.SerializeObject(l)));
+                if (w.HanziSimp == null && w.HanziTrad == null && w.Pinyin == null && w.English == null)
+                {
+                    Console.WriteLine("Word did not contain any data! Skipped");
+                    skipCount++;
+                }
+                else
+                {
+                    File.AppendAllText(parsedPath, PrettyJson(JsonConvert.SerializeObject(w)));
+                    Console.WriteLine("Wrote {0} to {1}", w.HanziSimp, parsedPath);
+                    wordCount++;
+                }
             }
-            
+            stopwatch.Stop();
+
+            Console.WriteLine("Wrote {0} words and skipped {1} words in {2} milliseconds", wordCount, skipCount, stopwatch.ElapsedMilliseconds);
             Console.WriteLine(@"Created JSON file at C:\_repo\han-zidian\utilities\ParseCedict");
         }
     }
 }
 
-// TODO: Make JSON file support Hanzi
+// TODO: It's fine that the JSON file isn't showing the Hanzi, just convert the encoding to UTF8 when deserializing in Dart
 // TODO: Exception handling when parsing 118,000 lines of text. Something will probably happen.
