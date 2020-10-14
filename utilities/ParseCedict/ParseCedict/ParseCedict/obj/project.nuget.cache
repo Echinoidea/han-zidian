@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "evcQVd5Nm4/TkUVbtI8CMdhFJ6OuIDgL2mWk+1286uWjaTDdyes3o8wx6VJz/5iM37ul2icpJHQgJ6Xn1eMVQA==",
+  "success": true,
+  "projectFilePath": "C:\\_repo\\han-zidian\\utilities\\ParseCedict\\ParseCedict\\ParseCedict\\ParseCedict.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Owner\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
