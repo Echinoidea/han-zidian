@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
-using Newtonsoft.Json;
-using System.Linq;
-using System.Text.Unicode;
 using System.Text;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using System.Reflection;
 using System.Diagnostics;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace ParseCedict
 {
-    class Word
+    public class Word
     {
         // All words must contain a hanzi, pinyin, english, but may not have image path
-        public string HanziSimp; // Simplified Chinese character
-        public string HanziTrad; // Traditional Chinese character
-        public string Pinyin;    // Pinyin for the Word
-        public string English;   // English translation of the Word
+        public string HanziSimp = ""; // Simplified Chinese character
+        public string HanziTrad = ""; // Traditional Chinese character
+        public string Pinyin = "";    // Pinyin for the Word
+        public string English = "";   // English translation of the Word
         //public string POS;       // Part of speech of the Word
-        public string ImagePath; // Path leading to the appropriate image for the Hanzi
+        public string ImagePath = ""; // Path leading to the appropriate image for the Hanzi
 
 
         /// <summary>
@@ -111,54 +106,46 @@ namespace ParseCedict
             }
         }
 
-        private static string PrettyJson(string inJson)
+        static void ToXML(string path)
         {
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = true
-            };
+            XDocument xdoc = new XDocument(
+                    new XDeclaration("1.0", "utf-8", "yes"),
+                        // This is the root of the document
+                        new XElement("Entries",
+                        from w in words
+                        select
+                            new XElement("Entry",
+                                new XElement("HanziSimp", w.HanziSimp),
+                                new XElement("HanziTrad", w.HanziTrad),
+                                new XElement("Pinyin", w.Pinyin),
+                                new XElement("English", w.English),
+                                new XElement("StrokeImagePath", w.ImagePath))));
 
-            var jsonElement = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(inJson);
-
-            return System.Text.Json.JsonSerializer.Serialize(jsonElement, options);
+            // Write the document to the file system            
+            xdoc.Save(path);
         }
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
 
             string dictPath = @"C:\_repo\han-zidian\utilities\ParseCedict\cedict_ts.u8";
-            string parsedPath = @"C:\_repo\han-zidian\utilities\ParseCedict\ParsedCedict.json";
+            //dictPath = @"C:\_repo\han-zidian\utilities\ParseCedict\TestDict.txt";
+            string parsedPath = @"C:\_repo\han-zidian\utilities\ParseCedict\ParsedTest.xml";
 
             File.Delete(parsedPath);
 
             SplitCeDict(dictPath);
 
-            int wordCount = 0;
-            int skipCount = 0;
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            foreach (Word w in words)
-            {
-                if (w.HanziSimp == null && w.HanziTrad == null && w.Pinyin == null && w.English == null)
-                {
-                    Console.WriteLine("Word did not contain any data! Skipped");
-                    skipCount++;
-                }
-                else
-                {
-                    File.AppendAllText(parsedPath, PrettyJson(JsonConvert.SerializeObject(w)));
-                    Console.WriteLine("Wrote {0} to {1}", w.HanziSimp, parsedPath);
-                    wordCount++;
-                }
-            }
-            stopwatch.Stop();
+            ToXML(parsedPath);
 
-            Console.WriteLine("Wrote {0} words and skipped {1} words in {2} milliseconds\nFound images for {3} words", wordCount, skipCount, stopwatch.ElapsedMilliseconds, imageCount);
-            Console.WriteLine(@"Created JSON file at C:\_repo\han-zidian\utilities\ParseCedict");
-            // RESULTS Wrote 116747 words and skipped 2098 words in 430098 milliseconds Found images for 1165 words
+            stopwatch.Stop();
+            Console.WriteLine("Wrote {0} words in {1} milliseconds\nFound images for {2} words", words.Count, stopwatch.ElapsedMilliseconds, imageCount);
+            Console.WriteLine(@"Created XML file at {0}", parsedPath);
+            // RESULTS Wrote 118845 words in 339 milliseconds Found images for 1165 words
         }
     }
 }
-
-// TODO: It's fine that the JSON file isn't showing the Hanzi, just convert the encoding to UTF8 when deserializing in Dart
